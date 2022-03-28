@@ -15,7 +15,7 @@ export class CreateArticleDto {
     thumbnail: string
 
     @Field({ nullable: false })
-    author: mongoose.Types.ObjectId
+    author: string
 
 }
 
@@ -31,5 +31,5 @@ export class UpdateArticleDto {
     thumbnail?: string
 
     @Field({ nullable: false })
-    author: mongoose.Types.ObjectId
+    author: string
 }

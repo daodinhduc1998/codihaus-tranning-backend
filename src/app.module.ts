@@ -5,7 +5,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './user/user.module';
-//import { ArticleModule } from './article/article.module';
+import { ArticlesModule } from './article/article.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './configuration';
@@ -19,7 +19,7 @@ import configuration from './configuration';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     UsersModule,
-    //ArticleModule,
+    ArticlesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

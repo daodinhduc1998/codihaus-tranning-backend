@@ -24,7 +24,7 @@ export class Article {
     @Field()
     thumbnail: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
     @Field(() => User)
     author: User | string
 }

@@ -21,10 +21,12 @@ type User {
 
 type Query {
   getUser(id: String!): [User!]!
+  getArticle(title: String!): [Article!]!
 }
 
 type Mutation {
   createUser(input: CreateUserDto!): User!
+  createArticle(input: CreateArticleDto!): Article!
 }
 
 input CreateUserDto {
@@ -32,4 +34,11 @@ input CreateUserDto {
   password: String!
   email: String!
   name: String
+}
+
+input CreateArticleDto {
+  title: String!
+  content: String!
+  thumbnail: String
+  author: String!
 }
