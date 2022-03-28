@@ -7,18 +7,18 @@ import { Param } from '@nestjs/common';
 //import { Article } from '../article/article.entity';
 
 @Resolver(() => Article)
-export class UsersResolver {
+export class ArticlesResolver {
     constructor(private articlesService: ArticlesService,
         //private articleService: ArticleService,
     ) { }
 
     @Query(() => [Article])
-    async getUser(@Args('title') title: string) {
+    async getArticle(@Args('title') title: string) {
         return await this.articlesService.getArticles(title);
     }
 
     @Mutation(() => Article)
-    async createUser(@Args('input') article: CreateArticleDto) {
+    async createArticle(@Args('input') article: CreateArticleDto) {
         return this.articlesService.createArticle(article);
     }
 
