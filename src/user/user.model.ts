@@ -1,11 +1,9 @@
 
 
-import { Field, InputType, ObjectType, Int, ID } from '@nestjs/graphql';
-import * as mongoose from 'mongoose';
-import { Article } from '../article/article.model';
-
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
+import { ObjectType, Field, ID, InputType, Int } from '@nestjs/graphql';
+import { Article } from '../article/article.model';
 
 export type UserDocument = User & mongoose.Document;
 
@@ -31,9 +29,9 @@ export class User {
     @Field()
     name: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true })
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
     @Field(() => [Article])
-    articles: Article[]
+    articles: [Article]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

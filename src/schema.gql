@@ -8,6 +8,7 @@ type Article {
   content: String!
   thumbnail: String!
   author: User!
+  authorInfo: [User!]!
 }
 
 type User {
@@ -21,7 +22,7 @@ type User {
 
 type Query {
   getUser(id: String!): [User!]!
-  getArticle(title: String!): [Article!]!
+  getArticle(id: String!): [Article!]!
 }
 
 type Mutation {

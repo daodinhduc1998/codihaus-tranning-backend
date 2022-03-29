@@ -13,11 +13,11 @@ export class Relationship {
     @Field(() => ID)
     _id: number;
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' } })
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }] })
     @Field(() => [Category])
     categories: [Category];
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' } })
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
     @Field(() => [Article])
     articles: [Article]
 

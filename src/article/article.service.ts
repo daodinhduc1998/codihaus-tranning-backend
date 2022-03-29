@@ -8,18 +8,17 @@ import { CreateArticleDto, UpdateArticleDto } from './article.dto';
 @Injectable()
 export class ArticlesService {
     constructor(@InjectModel(Article.name) private articleModel: Model<ArticleDocument>) { }
-
-    async getArticles(title?: string) {
-        if (!title)
+    async getArticles(id?: string) {
+        if (!id)
             return this.articleModel.find().lean()
         else {
-            return [this.articleModel.findOne({ title: title }).lean()]
+            return [this.articleModel.findOne({ _id: id }).lean()]
             //return this.userModel.findOne({ username: username }).lean()
         }
     }
 
     async createArticle(article: CreateArticleDto) {
-        const newArticle = new this.articleModel({ article })
+        const newArticle = new this.articleModel(article)
         return newArticle.save()
     }
 
