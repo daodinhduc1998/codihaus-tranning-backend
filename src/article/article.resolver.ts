@@ -11,8 +11,16 @@ export class ArticlesResolver {
     constructor(private articlesService: ArticlesService, private usersService: UsersService) { }
 
     @Query(() => [Article])
-    async getArticle(@Args('id') id: string) {
-        return await this.articlesService.getArticles(id);
+    async getArticle(@Args('id') id: string, @Args('limit') limit: number) {
+        if (id)
+            return this.articlesService.findId(id)
+        else {
+            if (limit > 0)
+                return this.articlesService.findLimit(limit)
+            else
+                return []
+        }
+
     }
 
     @Mutation(() => Article)
@@ -22,7 +30,7 @@ export class ArticlesResolver {
 
     @ResolveField(() => User)
     async detail(@Parent() article: Article) {
-        return this.usersService.findById(article.author);
+        return this.usersService.findId(article.author.toString());
     }
 
 }

@@ -11,8 +11,15 @@ export class UsersResolver {
     constructor(private usersService: UsersService, private articleService: ArticlesService) { }
 
     @Query(() => [User])
-    async getUser(@Args('id') id: string) {
-        return await this.usersService.getUsers(id);
+    async getUser(@Args('id') id: string, @Args('limit') limit: number) {
+        if (id)
+            return this.usersService.findId(id)
+        else {
+            if (limit > 0)
+                return this.usersService.findLimit(limit);
+            else
+                return []
+        }
     }
 
     @Mutation(() => User)
@@ -20,9 +27,9 @@ export class UsersResolver {
         return this.usersService.createUser(user);
     }
 
-    @ResolveField()
-    async articles(@Parent() user: User) {
-        return this.articleService.getArticles(user._id.toString());
+    @ResolveField(() => [Article])
+    async articleDetail(@Parent() user: User) {
+        return this.articleService.findListArticlebyUser(user._id.toString());
     }
 
 }

@@ -29,9 +29,9 @@ export class User {
     @Field()
     name: string;
 
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true }] })
     @Field(() => [Article])
-    articles: [Article]
+    articles: Article[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

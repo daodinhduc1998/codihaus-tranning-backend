@@ -18,11 +18,12 @@ type User {
   email: String!
   name: String!
   articles: [Article!]!
+  articleDetail: [Article!]!
 }
 
 type Query {
-  getUser(id: String!): [User!]!
-  getArticle(id: String!): [Article!]!
+  getUser(id: String!, limit: Float!): [User!]!
+  getArticle(id: String!, limit: Float!): [Article!]!
 }
 
 type Mutation {
