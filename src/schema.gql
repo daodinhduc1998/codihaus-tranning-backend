@@ -8,7 +8,7 @@ type Article {
   content: String!
   thumbnail: String!
   author: User!
-  authorInfo: [User!]!
+  detail: User!
 }
 
 type User {

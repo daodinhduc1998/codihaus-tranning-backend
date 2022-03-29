@@ -20,10 +20,9 @@ export class ArticlesResolver {
         return this.articlesService.createArticle(article);
     }
 
-    @ResolveField(() => [User])
-    async authorInfo(@Parent() article: Article) {
-        // console.log(article);
-        return await this.usersService.getUsers(article._id.toString()) // send id of article to user service to find 
+    @ResolveField(() => User)
+    async detail(@Parent() article: Article) {
+        return this.usersService.findById(article.author);
     }
 
 }

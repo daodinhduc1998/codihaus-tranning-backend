@@ -19,7 +19,7 @@ export class ArticlesService {
 
     async createArticle(article: CreateArticleDto) {
         const newArticle = new this.articleModel(article)
-        return newArticle.save()
+        return this.articleModel.create(newArticle)
     }
 
 }

@@ -18,6 +18,11 @@ export class UsersService {
         }
     }
 
+    async findById(id) {
+        return this.userModel.findById(id).lean();
+    }
+
+
     async createUser(user: CreateUserDto) {
         const newUser = new this.userModel({
             username: user.username,
@@ -26,8 +31,8 @@ export class UsersService {
             name: user.name ? user.name : "",
             articles: []
         })
-        console.log(newUser);
-        return newUser.save()
+        return this.userModel.create(newUser)
+        // return newUser.save()
     }
 
 }
