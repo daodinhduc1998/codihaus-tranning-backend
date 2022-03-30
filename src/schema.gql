@@ -56,5 +56,5 @@ input CreateArticleDto {
   content: String!
   thumbnail: String
   author: String!
-  categories: String!
+  categories: [String!]
 }

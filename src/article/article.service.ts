@@ -36,14 +36,14 @@ export class ArticlesService {
 
     async createArticleR(article: CreateArticleDto) {
         const newArticle = new this.articleModel({
-            categories: [article.categories],
+            categories: [...article.categories],
             title: article.title,
             content: article.content,
             author: article.author,
             thumbnail: article.thumbnail
         })
         //await this.userModel.updateOne({ _id: article.author }, { $push: { articles: newArticle._id } })
-        await this.categoryModel.updateOne({ _id: article.categories }, { $push: { articles: newArticle._id } })
+        await this.categoryModel.updateMany({ _id: { $in: article.categories } }, { $push: { articles: newArticle._id } })
         return this.articleModel.create(newArticle)
     }
 
