@@ -31,7 +31,7 @@ export class CategoryResolver {
 
     @ResolveField(() => [Article])
     async articleList(@Parent() category: Category) {
-        return this.articleService.findAll(category.articles);
+        return this.categoryService.find2Article(category._id.toString());
     }
 
 }

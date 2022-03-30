@@ -23,13 +23,11 @@ export class Article {
     @Field()
     thumbnail: string;
 
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }] })
-    @Field(() => [Category])
-    categories: Category[];
+    @Prop()
+    categories: string[];
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
-    @Field(() => User)
-    author: User | number
+    @Prop()
+    author: string[]
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

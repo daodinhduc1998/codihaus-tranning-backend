@@ -27,15 +27,14 @@ export class ArticlesService {
         return this.articleModel.find({ _id: { $in: articles } })
     }
 
-    async createArticle(article: CreateArticleDto) {
-        console.log(article);
-        const newArticle = new this.articleModel(article)
-        await this.userModel.updateOne({ _id: article.author }, { $push: { articles: newArticle._id } })
-        return this.articleModel.create(newArticle)
-    }
+    // async createArticle(article: CreateArticleDto) {
+    //     console.log(article);
+    //     const newArticle = new this.articleModel(article)
+    //     await this.userModel.updateOne({ _id: article.author }, { $push: { articles: newArticle._id } })
+    //     return this.articleModel.create(newArticle)
+    // }
 
     async createArticleR(article: CreateArticleDto) {
-        console.log(article);
         const newArticle = new this.articleModel({
             categories: [article.categories],
             title: article.title,
@@ -43,7 +42,7 @@ export class ArticlesService {
             author: article.author,
             thumbnail: article.thumbnail
         })
-        await this.userModel.updateOne({ _id: article.author }, { $push: { articles: newArticle._id } })
+        //await this.userModel.updateOne({ _id: article.author }, { $push: { articles: newArticle._id } })
         await this.categoryModel.updateOne({ _id: article.categories }, { $push: { articles: newArticle._id } })
         return this.articleModel.create(newArticle)
     }

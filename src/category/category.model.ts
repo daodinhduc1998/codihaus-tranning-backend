@@ -20,11 +20,6 @@ export class Category {
     @Prop()
     @Field()
     description: string;
-
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
-    @Field(() => [Article])
-    articles: Article[]
-
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

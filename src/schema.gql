@@ -2,12 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Category {
+type User {
   _id: ID!
+  username: String!
+  password: String!
+  email: String!
   name: String!
-  description: String!
-  articles: [Article!]!
-  articleList: [Article!]!
+  articleDetail: [Article!]!
 }
 
 type Article {
@@ -15,19 +16,15 @@ type Article {
   title: String!
   content: String!
   thumbnail: String!
-  categories: [Category!]!
   author: User!
   category: [Category!]!
 }
 
-type User {
+type Category {
   _id: ID!
-  username: String!
-  password: String!
-  email: String!
   name: String!
-  articles: [Article!]!
-  articleDetail: [Article!]!
+  description: String!
+  articleList: [Article!]!
 }
 
 type Query {

@@ -8,7 +8,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './user/user.module';
 import { ArticlesModule } from './article/article.module';
 import { CategoryModule } from './category/category.module';
-import { ArticleReCategoryModule } from './_ArticleReCategory/ArticleReCategory.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
@@ -24,8 +23,7 @@ import configuration from './configuration';
     }),
     UsersModule,
     CategoryModule,
-    ArticlesModule,
-    //ArticleReCategoryModule
+    ArticlesModule
   ],
   controllers: [AppController],
   providers: [AppService],
