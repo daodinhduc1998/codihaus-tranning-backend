@@ -26,7 +26,7 @@ export class CreateArticleDto {
     @IsArray({ message: 'unit must be array' })
     @ArrayMinSize(1)
     @Field(type => [String], { nullable: true })
-    categories?: string[]
+    categories: string[]
 }
 
 @InputType()
