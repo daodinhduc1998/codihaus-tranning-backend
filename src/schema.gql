@@ -2,13 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  _id: ID!
+  name: String!
+  description: String!
+  articles: [Article!]!
+  articleList: [Article!]!
+}
+
 type Article {
   _id: ID!
   title: String!
   content: String!
   thumbnail: String!
+  categories: [Category!]!
   author: User!
-  detail: User!
+  category: [Category!]!
 }
 
 type User {
@@ -23,11 +32,13 @@ type User {
 
 type Query {
   getUser(id: String!, limit: Float!): [User!]!
+  getCategory(id: String!, limit: Float!): [Category!]!
   getArticle(id: String!, limit: Float!): [Article!]!
 }
 
 type Mutation {
   createUser(input: CreateUserDto!): User!
+  createCategory(input: CreateCategoryDto!): Category!
   createArticle(input: CreateArticleDto!): Article!
 }
 
@@ -38,9 +49,15 @@ input CreateUserDto {
   name: String
 }
 
+input CreateCategoryDto {
+  name: String!
+  description: String
+}
+
 input CreateArticleDto {
   title: String!
   content: String!
   thumbnail: String
   author: String!
+  categories: String!
 }

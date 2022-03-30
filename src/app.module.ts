@@ -4,8 +4,12 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
 import { UsersModule } from './user/user.module';
 import { ArticlesModule } from './article/article.module';
+import { CategoryModule } from './category/category.module';
+import { ArticleReCategoryModule } from './_ArticleReCategory/ArticleReCategory.module';
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './configuration';
@@ -19,7 +23,9 @@ import configuration from './configuration';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     UsersModule,
+    CategoryModule,
     ArticlesModule,
+    //ArticleReCategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

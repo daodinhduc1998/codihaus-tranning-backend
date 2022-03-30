@@ -17,6 +17,10 @@ export class UsersService {
         return this.userModel.find({ _id: id }).lean();
     }
 
+    async findOneId(id: string) {
+        return this.userModel.findOne({ _id: id }).lean();
+    }
+
 
     async createUser(user: CreateUserDto) {
         const newUser = new this.userModel({

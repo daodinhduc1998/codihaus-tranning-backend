@@ -29,7 +29,7 @@ export class User {
     @Field()
     name: string;
 
-    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true }] })
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
     @Field(() => [Article])
     articles: Article[]
 }

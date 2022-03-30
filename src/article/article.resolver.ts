@@ -5,10 +5,16 @@ import { UsersService } from '../user/user.service';
 import { Article } from './article.model';
 import { CreateArticleDto, UpdateArticleDto } from './article.dto';
 import { Param } from '@nestjs/common';
+import { Category } from 'src/category/category.model';
+import { CategoryService } from 'src/category/category.service';
 
 @Resolver(() => Article)
 export class ArticlesResolver {
-    constructor(private articlesService: ArticlesService, private usersService: UsersService) { }
+    constructor(private articlesService: ArticlesService,
+        private usersService: UsersService,
+        private categoryService: CategoryService,
+
+    ) { }
 
     @Query(() => [Article])
     async getArticle(@Args('id') id: string, @Args('limit') limit: number) {
@@ -20,17 +26,21 @@ export class ArticlesResolver {
             else
                 return []
         }
-
     }
 
     @Mutation(() => Article)
-    async createArticle(@Args('input') article: CreateArticleDto) {
-        return this.articlesService.createArticle(article);
+    async createArticle(@Args('input') article: CreateArticleDto,) {
+        return this.articlesService.createArticleR(article);
     }
 
     @ResolveField(() => User)
-    async detail(@Parent() article: Article) {
-        return this.usersService.findId(article.author.toString());
+    async author(@Parent() article: Article) {
+        return this.usersService.findOneId(article.author.toString());
+    }
+
+    @ResolveField(() => [Category])
+    async category(@Parent() article: Article) {
+        return this.categoryService.findAll(article.categories);
     }
 
 }

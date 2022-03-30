@@ -13,17 +13,17 @@ export class Category {
     @Field(() => ID)
     _id: number;
 
-    @Prop()
+    @Prop({ required: true, unique: true })
     @Field()
     name: string;
 
     @Prop()
     @Field()
-    content: string;
-
-    @Prop()
-    @Field()
     description: string;
+
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
+    @Field(() => [Article])
+    articles: Article[]
 
 }
 

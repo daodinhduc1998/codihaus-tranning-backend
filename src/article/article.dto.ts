@@ -2,6 +2,7 @@
 import { Field, InputType, ObjectType, Int, ID } from '@nestjs/graphql';
 import * as mongoose from 'mongoose';
 import { Article, ArticleSchema } from '../article/article.model';
+import { Category } from 'src/category/category.model';
 
 @InputType()
 export class CreateArticleDto {
@@ -17,6 +18,8 @@ export class CreateArticleDto {
     @Field({ nullable: false })
     author: string
 
+    @Field({ nullable: false })
+    categories: string
 }
 
 @InputType()
