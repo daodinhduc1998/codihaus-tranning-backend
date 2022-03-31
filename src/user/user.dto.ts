@@ -24,6 +24,9 @@ export class CreateUserDto {
 @InputType()
 export class UpdateUserDto {
     @Field({ nullable: false })
+    _id: string
+
+    @Field({ nullable: false })
     username: string
 
     @Field({ nullable: true })
@@ -35,4 +38,25 @@ export class UpdateUserDto {
 
     @Field({ nullable: true })
     name?: string
+}
+
+@InputType()
+export class DeleteUserDto {
+    @Field({ nullable: true })
+    _id: string
+
+    @Field({ nullable: false })
+    username: string
+}
+
+@InputType()
+export class LoginInput {
+    @Field({ nullable: false })
+    username: string;
+
+    @Field({ nullable: true })
+    email?: string;
+
+    @Field({ nullable: false })
+    password: string;
 }

@@ -2,7 +2,6 @@
 import { Field, InputType, ObjectType, Int, ID } from '@nestjs/graphql';
 @InputType()
 export class CreateCategoryDto {
-
     @Field({ nullable: false })
     name: string
 
@@ -13,11 +12,21 @@ export class CreateCategoryDto {
 @InputType()
 export class UpdateCategoryDto {
     @Field({ nullable: false })
-    name: string
+    _id: string
+
+    @Field({ nullable: true })
+    name?: string
 
     @Field({ nullable: true })
     description?: string
+}
 
+@InputType()
+export class DeleteCategoryDto {
     @Field({ nullable: true })
-    categories?: string
+    _id: string
+
+    @Field({ nullable: false })
+    name: string
+
 }

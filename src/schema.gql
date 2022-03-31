@@ -29,14 +29,35 @@ type Category {
 
 type Query {
   getUser(id: String!, limit: Float!): [User!]!
+  login(input: LoginInput!): User
   getCategory(id: String!, limit: Float!): [Category!]!
   getArticle(id: String!, limit: Float!): [Article!]!
+  find(query: QueryFind!): [Article!]!
+}
+
+input LoginInput {
+  username: String!
+  email: String
+  password: String!
+}
+
+input QueryFind {
+  option: String
+  limit: Float
+  id: String
+  page: Float
 }
 
 type Mutation {
   createUser(input: CreateUserDto!): User!
+  updateUser(input: UpdateUserDto!): User!
+  deleteUser(input: DeleteUserDto!): User!
   createCategory(input: CreateCategoryDto!): Category!
+  updateCategory(input: UpdateCategoryDto!): Category!
+  deleteCategory(input: DeleteCategoryDto!): Category!
   createArticle(input: CreateArticleDto!): Article!
+  deleteArticle(id: String!): Article!
+  updateArticle(input: UpdateArticleDto!): Article!
 }
 
 input CreateUserDto {
@@ -46,9 +67,33 @@ input CreateUserDto {
   name: String
 }
 
+input UpdateUserDto {
+  _id: String!
+  username: String!
+  password: String
+  email: String
+  name: String
+}
+
+input DeleteUserDto {
+  _id: String
+  username: String!
+}
+
 input CreateCategoryDto {
   name: String!
   description: String
+}
+
+input UpdateCategoryDto {
+  _id: String!
+  name: String
+  description: String
+}
+
+input DeleteCategoryDto {
+  _id: String
+  name: String!
 }
 
 input CreateArticleDto {
@@ -57,4 +102,13 @@ input CreateArticleDto {
   thumbnail: String
   author: String!
   categories: [String!]
+}
+
+input UpdateArticleDto {
+  _id: String!
+  title: String
+  content: String
+  thumbnail: String
+  categories: [String!]
+  author: String
 }

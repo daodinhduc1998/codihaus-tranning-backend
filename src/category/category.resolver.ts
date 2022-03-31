@@ -2,7 +2,7 @@ import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/g
 import { CategoryService } from './category.service';
 import { ArticlesService } from '../article/article.service';
 import { Category } from './category.model';
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { CreateCategoryDto, DeleteCategoryDto, UpdateCategoryDto } from './category.dto';
 import { Param } from '@nestjs/common';
 import { Article } from 'src/article/article.model';
 
@@ -27,6 +27,14 @@ export class CategoryResolver {
     @Mutation(() => Category)
     async createCategory(@Args('input') category: CreateCategoryDto) {
         return this.categoryService.createCategory(category);
+    }
+    @Mutation(() => Category)
+    async updateCategory(@Args('input') category: UpdateCategoryDto) {
+        return this.categoryService.updateCategory(category);
+    }
+    @Mutation(() => Category)
+    async deleteCategory(@Args('input') category: DeleteCategoryDto) {
+        return this.categoryService.deleteCategory(category);
     }
 
     @ResolveField(() => [Article])

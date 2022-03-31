@@ -4,6 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { ObjectType, Field, ID, InputType, Int } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
+import * as bcrypt from 'bcrypt';
 
 export type UserDocument = User & mongoose.Document;
 
@@ -28,10 +29,30 @@ export class User {
     @Prop()
     @Field()
     name: string;
-
-    // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }] })
-    // @Field(() => [Article])
-    // articles: Article[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.pre('save', async function (next: any) {
+    let user = this as UserDocument;
+
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) {
+        return next();
+    }
+    // Random additional data
+    const salt = await bcrypt.genSalt(10)
+
+    const hash = await bcrypt.hashSync(user.password, salt)
+
+    // Replace the password with the hash
+    user.password = hash;
+
+    return next();
+});
+
+UserSchema.methods.comparePassword = async function (
+    candidatePassword: string, password: string
+) {
+    return bcrypt.compare(candidatePassword, password).catch((e) => false);
+};

@@ -24,13 +24,16 @@ export class CreateArticleDto {
 
     @IsMongoId({ each: true, message: 'must be a ID' })
     @IsArray({ message: 'unit must be array' })
-    @ArrayMinSize(1)
+    //@ArrayMinSize(1)
     @Field(type => [String], { nullable: true })
     categories: string[]
 }
 
 @InputType()
 export class UpdateArticleDto {
+    @Field({ nullable: false })
+    _id: string
+
     @Field({ nullable: true })
     title?: string
 
@@ -40,6 +43,23 @@ export class UpdateArticleDto {
     @Field({ nullable: true })
     thumbnail?: string
 
-    @Field({ nullable: false })
-    author: string
+    @Field(type => [String], { nullable: true })
+    categories?: string[]
+
+    @Field(type => String, { nullable: true })
+    author?: string
+}
+
+@InputType()
+export class QueryFind {
+    @Field(type => String, { nullable: true })
+    option: string
+    @Field(type => Number, { nullable: true })
+    limit: number
+    @Field(type => String, { nullable: true })
+    id: string
+    @Field(type => Number, { nullable: true })
+    page: number
+
+
 }

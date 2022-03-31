@@ -3,7 +3,7 @@ import { ArticlesService } from './article.service';
 import { User } from '../user/user.model';
 import { UsersService } from '../user/user.service';
 import { Article } from './article.model';
-import { CreateArticleDto, UpdateArticleDto } from './article.dto';
+import { CreateArticleDto, UpdateArticleDto, QueryFind } from './article.dto';
 import { Param } from '@nestjs/common';
 import { Category } from 'src/category/category.model';
 import { CategoryService } from 'src/category/category.service';
@@ -28,9 +28,24 @@ export class ArticlesResolver {
         }
     }
 
+    @Query(() => [Article])
+    async find(@Args('query') query: QueryFind) {
+        return this.articlesService.queryFind(query)
+    }
+
     @Mutation(() => Article)
     async createArticle(@Args('input') article: CreateArticleDto,) {
-        return this.articlesService.createArticleR(article);
+        return this.articlesService.createArticle(article);
+    }
+
+    @Mutation(() => Article)
+    async deleteArticle(@Args('id') id: string,) {
+        return this.articlesService.deleteArticle(id);
+    }
+
+    @Mutation(() => Article)
+    async updateArticle(@Args('input') article: UpdateArticleDto,) {
+        return this.articlesService.updateArticle(article);
     }
 
     @ResolveField(() => User)

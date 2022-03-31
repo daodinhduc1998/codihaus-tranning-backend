@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Category, CategoryDocument } from './category.model';
 import { Article, ArticleDocument } from 'src/article/article.model'
-import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { CreateCategoryDto, UpdateCategoryDto, DeleteCategoryDto } from './category.dto';
 import mongoose from 'mongoose';
 
 @Injectable()
@@ -39,6 +39,20 @@ export class CategoryService {
     async createCategory(category: CreateCategoryDto) {
         const newCategory = new this.categoryModel(category)
         return this.categoryModel.create(newCategory)
+    }
+
+    async updateCategory(category: UpdateCategoryDto) {
+        const update = {}
+        if (category.name) update["name"] = category.name
+        if (category.description) update["description"] = category.description
+        return this.categoryModel.findOneAndUpdate({ _id: category._id }, update)
+    }
+
+    async deleteCategory(category: DeleteCategoryDto) {
+        this.categoryModel.findOneAndRemove({ _id: category._id })
+            .then(cate => {
+                return this.articleModel.updateMany({}, { $pull: { categories: { $in: [cate._id] } } })
+            })
     }
 
 
